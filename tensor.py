@@ -1,5 +1,18 @@
 import numpy as np 
 
+
+"""
+Tensor Implementation Module
+
+This module provides a Tensor class that mimics basic tensor operations
+similar to PyTorch or NumPy. It supports operations like addition,
+subtraction, multiplication, and matrix multiplication between tensors.
+
+The Tensor class serves as the foundational data structure for our neural
+network implementation. Note that gradients are handled manually in each 
+layer rather than through automatic differentiation in this class.
+"""
+
 class Tensor:
     ## init function is a consuutructor for the class and is called anytime we create an object of the class
     def __init__(self, data):
@@ -28,7 +41,7 @@ class Tensor:
         return Tensor(other_data - self.data)
 
     def rn__mul__(self, other):
-        retu Tensor(self.data * other.data) if isinstance(other, Tensor) else Tensor(self.data * other)
+        return Tensor(self.data * other.data) if isinstance(other, Tensor) else Tensor(self.data * other)
     def __rmul__(self, other):
         return self.__mul__(other)
 
