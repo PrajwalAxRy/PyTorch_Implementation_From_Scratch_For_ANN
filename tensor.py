@@ -40,7 +40,7 @@ class Tensor:
         other_data = other.data if isinstance(other, Tensor) else other
         return Tensor(other_data - self.data)
 
-    def rn__mul__(self, other):
+    def __mul__(self, other):
         return Tensor(self.data * other.data) if isinstance(other, Tensor) else Tensor(self.data * other)
     def __rmul__(self, other):
         return self.__mul__(other)
@@ -59,6 +59,7 @@ class Tensor:
     def T(self):
         return Tensor(self.data.T)
     
+
     
     ## Example: If you have a Tensor object and you print it, the __repr__ method will be called to determine what string to display.
     ## print(tensor) based on the below implementation will return a string with the content of self.data

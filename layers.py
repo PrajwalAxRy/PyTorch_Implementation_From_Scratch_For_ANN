@@ -23,6 +23,7 @@ class Dense:
         grad = grad_output.data if isinstance(grad_output, Tensor) else grad_output
         ## Shape of grad output -> (batch_size, output_dim)
         ##Compute gradient
+        #TODO: Revisit this and add more information based on the shapes and resulting shape.
         dW = self.last_input.T.dot(grad)
         db = np.sum(grad, axis=0)
 
