@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-from pytorch_implementation_from_scratch_for_ann.tensor import Tensor
+from tensor import Tensor
 
 class TestTensor(unittest.TestCase):
     def test_initialization(self):
@@ -77,3 +77,7 @@ class TestTensor(unittest.TestCase):
         # Test 4: In a collection
         tensors = [Tensor([1, 2]), Tensor([3, 4])]
         print(tensors)
+
+
+if __name__ == '__main__':
+    unittest.main()

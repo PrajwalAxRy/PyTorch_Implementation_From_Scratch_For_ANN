@@ -12,9 +12,10 @@ class ReLU:
         output = np.maximum(0, input_data_tensor)
         return Tensor(output) 
     
-    def backward(self, grad_output):
+    def backward(self, grad_output): ## Grad_Output: represents the gradient of the loss with respect to the output of this ReLU layer.
         grad = grad_output.data if isinstance(grad_output, Tensor) else grad_output
 
+        ## This step calulates the gradient of the loss with respect to the input of this ReLU layer.
         grad_input = grad * (self.last_input > 0).astype(float)
         return grad_input
 
@@ -73,7 +74,7 @@ class SoftMax:
         self.last_output = output
         return Tensor(output)
 
-    #TODO: Check this out and learn jacobian
+    #TODO: Check this out and learn jacobian. THIS PART IS AI GENERATED. BE CAREFUL WITH IT'S IMPLEMENTATION.
     def backward(self, grad_output):
         # Calculate gradient of loss w.r.t softmax input using the Jacobian 
         grad = grad_output.data if isinstance(grad_output, Tensor) else grad_output
