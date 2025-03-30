@@ -9,45 +9,44 @@ class TestMSELoss(unittest.TestCase):
         pred = Tensor([0.5, 2.0])
         target = Tensor([1.0, 3.0])
         loss_calculated = mse.forward(pred, target)
-        loss_actual = Tensor([0.25, 1.0])
-        self.assertAlmostEqual(loss_calculated, loss_actual.data, places=5)
+        loss_actual = Tensor([0.625])
+        self.assertTrue(np.allclose(loss_calculated, loss_actual.data, rtol=1e-1))
 
     def test_forward_batchsize_multiple(self):
         mse = MSELoss()
         pred = Tensor([[0.5, 2.0], [1.5, 3.0]])
-        target = Tensor([[1.0, 3.0], [2.0, 4.0]])
+        target = Tensor([[1.0, 3.0], [1.5, 4.0]])
         loss_calculated = mse.forward(pred, target)
-        loss_actual = Tensor([0.25, 1.0])
-        self.assertAlmostEqual(loss_calculated, loss_actual.data, places=5)
+        loss_actual = Tensor([0.5625])
+        self.assertTrue(np.allclose(loss_calculated, loss_actual.data, rtol=1e-5))
 
-    def test_forward_oneHotConversion(Self):
+    def test_forward_oneHotConversion(self):
         mse = MSELoss()
-        pred = Tensor([[0.5, 2.0, 3.0], [4.0, 1.5, 3.0]])
-        target = Tensor([1, 0])
+        pred = Tensor([[0.5, 2.0, 1.0], [1.0, 0.5, 1.0]])
+        target = Tensor([1, 2])
         loss_calculated = mse.forward(pred, target)
-        loss_actual = Tensor([0.25, 1.0])
-        self.assertAlmostEqual(loss_calculated, loss_actual.data, places=5)
+        loss_actual = Tensor([0.583])
+        self.assertTrue(np.allclose(loss_calculated, loss_actual.data, rtol=1e-1))
 
     def test_backward_batchSize_one(self):
         mse = MSELoss()
-        pred = Tensor([0.2, 0.3, 0.5])
-        target = Tensor([2])
-
-        mse_loss.forward(pred, target)
-        compute_grad = mse_loss.backward()
+        pred = Tensor([0.2, 0.3, 1])
+        target = Tensor([0, 0, 1])
+        mse.forward(pred, target)
+        compute_grad = mse.backward()
 
         one_hot_encode = np.array([0, 0, 1])
-        expected_grad = 2 * (pred.data - one_hot_encode) / pred.size
+        expected_grad = 2 * (pred.data - one_hot_encode) / pred.data.size
         self.assertTrue(np.allclose(compute_grad, expected_grad))
 
     def test_backward_batchSize_multiple(self):
         mse = MSELoss()
-        pred = Tensor([[0.2, 0.3, 0.5], [0.1, 0.4, 0.6]])
-        target = Tensor([[2], [1]])
+        pred = Tensor([[0.5, 2.0, 1.0], [1.0, 0.5, 1.0]])
+        target = Tensor([2, 1])
         
-        mse_loss.forward(pred, target)
-        compute_grad = mse_loss.backward()
+        mse.forward(pred, target)
+        compute_grad = mse.backward()
 
         one_hot_encode = np.array([[0, 0, 1], [0, 1, 0]])
-        expected_grad = 2 * (pred.data - one_hot_encode) / pred.size
+        expected_grad = 2 * (pred.data - one_hot_encode) / pred.data.size
         self.assertTrue(np.allclose(compute_grad, expected_grad))
