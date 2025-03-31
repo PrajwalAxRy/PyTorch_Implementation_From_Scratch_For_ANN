@@ -20,7 +20,7 @@ class Model:
             grad = layer.backward(grad)
         return grad
 
-    # This function     
+    # This function stores the parameters of the model in a list. It is used to get the parameters of the model for optimization.   
     def parameters(self):
         params = []
         for layer in self.layers:
