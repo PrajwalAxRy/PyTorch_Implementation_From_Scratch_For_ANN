@@ -1,4 +1,5 @@
 import numpy as np
+from tensor import Tensor
 
 class SGD:
     def __init__(self, params, lr=0.01):
@@ -11,6 +12,7 @@ class SGD:
 
     def step(self):
         for param, grad in self.params:
+            grad = grad.data if isinstance(grad, Tensor) else grad
             if isinstance(param, Tensor):
                 param.data = param.data - self.lr * grad
             else:
