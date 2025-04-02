@@ -1,5 +1,5 @@
 import numpy as np
-import tensor as Tensor
+from tensor import Tensor
 
 class Dense:
     def __init__(self, input_dim, output_dim):
@@ -24,12 +24,12 @@ class Dense:
         ## Shape of grad output -> (batch_size, output_dim)
         ##Compute gradient
         #TODO: Revisit this and add more information based on the shapes and resulting shape.
-        dW = self.last_input.T.dot(grad)
+        dw = self.last_input.T.dot(grad)
         db = np.sum(grad, axis=0)
 
         grad_input = grad.dot(self.W.data.T)
 
         ##Store them again
-        self.dW[...] = dW
+        self.dw[...] = dw
         self.db[...] = db
         return grad_input

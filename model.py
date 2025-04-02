@@ -1,4 +1,5 @@
-import numpy as np 
+import numpy as np
+from tensor import Tensor
 
 class Model:
     def __init__(self):
@@ -22,6 +23,20 @@ class Model:
 
     # This function stores the parameters of the model in a list. It is used to get the parameters of the model for optimization.   
     def parameters(self):
+        '''
+        model.add(Dense(2, 3))
+        model.add(ReLU())
+        model.add(Dense(3, 1))
+
+        This is what Params would look like
+        params = [
+            (W1, dw1),  # params[0]: Layer 1 weights, shape (2, 3)
+            (b1, db1),  # params[1]: Layer 1 biases, shape (3,)
+            (W2, dw2),  # params[2]: Layer 2 weights, shape (3, 2)
+            (b2, db2)   # params[3]: Layer 2 biases, shape (2,)
+        ]
+
+        '''
         params = []
         for layer in self.layers:
             if hasattr(layer, 'W'):
