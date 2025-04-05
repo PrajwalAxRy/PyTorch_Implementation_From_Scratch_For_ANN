@@ -1,0 +1,4 @@
+numpy
+
+## Users can call this using pip install -r requirements.txt
+## to install all the dependencies at once

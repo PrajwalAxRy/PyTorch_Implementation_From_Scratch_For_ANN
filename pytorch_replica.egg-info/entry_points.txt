@@ -1,0 +1,2 @@
+[console_scripts]
+pytorch_replica = pytorch_replica.main:main

@@ -1,0 +1,1 @@
+I have made this as a package that can be used like pytorch package and handle an ANN network.

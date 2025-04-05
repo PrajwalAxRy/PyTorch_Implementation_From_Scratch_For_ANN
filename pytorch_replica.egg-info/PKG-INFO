@@ -1,0 +1,17 @@
+Metadata-Version: 2.1
+Name: pytorch_replica
+Version: 7.0.0
+Summary: An implementation of a PyTorch-like framework from scratch for ANN.
+Home-page: https://github.com/yourusername/pytorch_replica
+Author: AxRy
+Author-email: prajwalsingh7512@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: tensorflow
+Requires-Dist: pandas
+
+I have made this as a package that can be used like pytorch package and handle an ANN network.
