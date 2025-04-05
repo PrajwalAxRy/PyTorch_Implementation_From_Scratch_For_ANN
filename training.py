@@ -6,7 +6,7 @@ from losses import MSELoss
 from optimizers import SGD
 
 
-def train(model, X_train, y_train, loss_fn, optimizer, epochs=10, batch_size=32):
+def train(model, X_train, y_train, loss_fn, optimizer, epochs=10, batch_size=32, X_val=None, y_val=None, metric_fn=None):
     '''
         Essentially we are going to train the model on the given numbers of epochs with the mnetioned optimizer.
     '''
@@ -39,6 +39,18 @@ def train(model, X_train, y_train, loss_fn, optimizer, epochs=10, batch_size=32)
         
         ## Average loss for the epoch
         epoch_loss /= n_samples  # Average the loss over all samples in the epoch
-        print(f"Epoch [{epoch}/{epochs}], Loss: {epoch_loss:.4f}")
+        # print(f"Epoch [{epoch}/{epochs}], Loss: {epoch_loss:.4f}")
 
-        #TODO: Also add some metrics, if mentioned by the user. 
+        #TODO: Also add some metrics, if mentioned by the user.
+        metric_info = ""
+        if metric_fn is not None:
+            train_metric = metric_fn(model.forward(X_train), y_train)
+            metric_info += f", Train Metric: {train_metric:.4f}, "
+        if X_val is not None and y_val is not None and metric_fn is not None:
+            val_metric = metric_fn(model.forward(X_val), y_val)
+            metric_info += f", Validation Metric: {val_metric:.4f}" 
+        elif X_val is not None and y_val is not None:
+            val_loss = loss_fn.forward(model.forward(X_val), y_val)
+            metric_info += f", Validation Loss: {val_loss:.4f}"
+        
+        print(f"Epoch [{epoch}/{epochs}], Loss: {epoch_loss:.4f}")
